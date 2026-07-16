@@ -20,6 +20,9 @@ class HandTracker:
     def process_frame(self, frame) -> Optional[HandData]:
         # Convert BGR to RGB
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        print("Logging: Frame converted to RGB")
+        
+        print("Logging: MediaPipe processing")
         results = self.hands.process(frame_rgb)
         
         if not results.multi_hand_landmarks:
