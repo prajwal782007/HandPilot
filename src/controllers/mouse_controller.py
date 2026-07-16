@@ -149,4 +149,46 @@ class MouseController:
                 print(f"ERROR: pyautogui failed to move cursor: {e}")
                 
         if success:
-            print("Logging: OS cursor updated")
+            pass # Removed noisy print
+
+    def left_click(self):
+        if self.backend == "pynput" and self.mouse:
+            from pynput.mouse import Button
+            self.mouse.click(Button.left)
+        elif self.backend == "pyautogui":
+            pyautogui.click()
+            
+    def right_click(self):
+        if self.backend == "pynput" and self.mouse:
+            from pynput.mouse import Button
+            self.mouse.click(Button.right)
+        elif self.backend == "pyautogui":
+            pyautogui.click(button='right')
+            
+    def double_click(self):
+        if self.backend == "pynput" and self.mouse:
+            from pynput.mouse import Button
+            self.mouse.click(Button.left, 2)
+        elif self.backend == "pyautogui":
+            pyautogui.doubleClick()
+            
+    def drag_start(self):
+        if self.backend == "pynput" and self.mouse:
+            from pynput.mouse import Button
+            self.mouse.press(Button.left)
+        elif self.backend == "pyautogui":
+            pyautogui.mouseDown()
+            
+    def drag_end(self):
+        if self.backend == "pynput" and self.mouse:
+            from pynput.mouse import Button
+            self.mouse.release(Button.left)
+        elif self.backend == "pyautogui":
+            pyautogui.mouseUp()
+            
+    def scroll(self, direction: int, amount: int = 1):
+        """ direction: 1 for up, -1 for down """
+        if self.backend == "pynput" and self.mouse:
+            self.mouse.scroll(0, direction * amount)
+        elif self.backend == "pyautogui":
+            pyautogui.scroll(direction * amount * 100)

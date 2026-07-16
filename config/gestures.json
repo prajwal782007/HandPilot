@@ -1,9 +1,10 @@
 {
-    "pinch_threshold": 0.05,
+    "click_distance": 0.05,
+    "drag_threshold": 0.05,
     "scroll_sensitivity": 2.0,
     "pause_duration_sec": 1.0,
-    "debounce_frames": 10,
-    "click_cooldown_ms": 300,
+    "debounce_frames": 3,
+    "click_cooldown_ms": 250,
     "smoothing_factor": 0.5,
     "active_filter": "one_euro"
 }

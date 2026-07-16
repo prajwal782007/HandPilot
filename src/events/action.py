@@ -1,6 +1,8 @@
 from enum import Enum, auto
 
 class Action(Enum):
+    NONE = auto()
+    
     # Mouse Actions
     LEFT_CLICK = auto()
     RIGHT_CLICK = auto()
