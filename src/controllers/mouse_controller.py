@@ -35,14 +35,13 @@ class MouseController:
         self.curr_x = 0
         self.curr_y = 0
         
-        # Backend initialization
         self.mouse = None
-        if _HAS_PYNPUT:
-            self.mouse = PynputController()
-            self.backend = "pynput"
-        elif _HAS_PYAUTOGUI:
+        if _HAS_PYAUTOGUI:
             pyautogui.FAILSAFE = False # Prevent PyAutoGUI from crashing if cursor hits a corner
             self.backend = "pyautogui"
+        elif _HAS_PYNPUT:
+            self.mouse = PynputController()
+            self.backend = "pynput"
         else:
             self.backend = "none"
             print("WARNING: Neither pynput nor pyautogui is installed. Mouse movement will not work.")
