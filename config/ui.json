@@ -1,0 +1,7 @@
+{
+    "theme": "dark",
+    "opacity": 0.8,
+    "show_fps": true,
+    "show_confidence": true,
+    "overlay_position": "top_right"
+}

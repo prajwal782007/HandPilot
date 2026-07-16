@@ -1,0 +1,7 @@
+{
+    "camera_index": 0,
+    "target_fps": 60,
+    "resolution_width": 1280,
+    "resolution_height": 720,
+    "flip_horizontal": true
+}
