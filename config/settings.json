@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "debug_mode": false,
     "log_level": "INFO",
-    "cursor_sensitivity": 1.5,
+    "cursor_sensitivity": 3.0,
     "smoothing_factor": 0.3,
     "dead_zone": 2.0,
-    "movement_scale": 1.2
+    "movement_scale": 1.5
 }
