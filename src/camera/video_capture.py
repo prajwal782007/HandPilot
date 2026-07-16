@@ -19,6 +19,11 @@ class Camera:
             cap = cv2.VideoCapture(index, backend_flag)
             
         if cap.isOpened():
+            # Set properties before reading to prevent MSMF backend crash
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+            cap.set(cv2.CAP_PROP_FPS, self.target_fps)
+            
             # Check if it actually reads a frame
             ret, frame = cap.read()
             if ret and frame is not None and frame.size > 0:
@@ -48,10 +53,6 @@ class Camera:
                     self.cap = cap
                     self.camera_index = index
                     self.backend_name = backend_name
-                    
-                    self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
-                    self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
-                    self.cap.set(cv2.CAP_PROP_FPS, self.target_fps)
                     print(f"Logging: Camera opened")
                     return True
                     
