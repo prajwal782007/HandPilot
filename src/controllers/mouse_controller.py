@@ -114,6 +114,9 @@ class MouseController:
         target_x, target_y = self._map_to_screen(normalized_x, normalized_y)
         smoothed_x, smoothed_y = self._apply_smoothing(target_x, target_y)
         
+        print(f"Logging: MouseController called with Palm coords: X:{normalized_x:.3f}, Y:{normalized_y:.3f}")
+        print(f"Logging: Mapped screen coordinates: X:{smoothed_x}, Y:{smoothed_y}")
+        
         if self._check_dead_zone(smoothed_x, smoothed_y):
             self._execute_move(smoothed_x, smoothed_y)
             self.prev_x = smoothed_x
@@ -124,7 +127,27 @@ class MouseController:
         
     def _execute_move(self, x, y):
         """Internal method to execute the OS-level move."""
+        print(f"Logging: Moving cursor to: X: {x}, Y: {y} using backend: {self.backend}")
+        
+        success = False
         if self.backend == "pynput" and self.mouse:
-            self.mouse.position = (x, y)
-        elif self.backend == "pyautogui":
-            pyautogui.moveTo(x, y, _pause=False)
+            try:
+                self.mouse.position = (x, y)
+                success = True
+            except Exception as e:
+                print(f"ERROR: pynput failed to move cursor: {e}")
+                success = False
+                
+        if not success and _HAS_PYAUTOGUI:
+            # Fallback to pyautogui
+            if self.backend == "pynput":
+                print("WARNING: Automatically falling back to PyAutoGUI...")
+                self.backend = "pyautogui"
+            try:
+                pyautogui.moveTo(x, y, _pause=False)
+                success = True
+            except Exception as e:
+                print(f"ERROR: pyautogui failed to move cursor: {e}")
+                
+        if success:
+            print("Logging: OS cursor updated")
